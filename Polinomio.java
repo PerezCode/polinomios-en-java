@@ -10,29 +10,43 @@ package polinomios;
  * @author david
  */
 public class Polinomio {
-    private char vectorEnChar[] = new char[20];
+    private char vectorEnChar[];
     private int datosUtiles;
-    private int vector[] = new int[10];
+    private int vector[];
     
 
     public Polinomio(String vectorEnString) {
+        this.vector = new int[10];
+        
+        //VectorEnChar toma el tamaño de vectorEnString
         this.vectorEnChar = vectorEnString.toCharArray();
-        buildVector(this.vectorEnChar);
+        setGrado(this.vectorEnChar);
     }
     
-    public void buildVector(char[] vectorEnChar) {
-        //Aqui se va a armar el vector con los coeficientes
+    public void setGrado(char[] vectorEnChar) {
         
-        //Encontrando grado mayor
-        char exponente = '0';
+        //Encontrando exponente mayor
+        int exponente = 0;
         for (int i = 0; i < vectorEnChar.length; i++) {
             if(vectorEnChar[i] == '^'){
-                if(vectorEnChar[i+1] > exponente){
-                    exponente = vectorEnChar[i+1];
+                if(Character.getNumericValue(vectorEnChar[i+1]) > exponente){
+                    exponente = Character.getNumericValue(vectorEnChar[i+1]);
                 }
-            }   
+            }else if(vectorEnChar[i] == 'X' && vectorEnChar[i+1] == ' '){
+                if(1 > exponente){
+                    exponente = 1;
+                }
+                i++;
+            }else if(vectorEnChar[i] == ' '){
+            }else if(vectorEnChar[i] == '-' || vectorEnChar[i] == '+'){
+            }else if(vectorEnChar[i] == 'X' && (vectorEnChar[i+1] == '+' ||
+                    vectorEnChar[i+1] == '-')){
+                    if(1>exponente){
+                        exponente = 1;
+                    }
+           }
         }
-        this.vector[0] = Character.getNumericValue(exponente);
+        this.vector[0] = exponente;
     }
     
     public int[] getVector(){
