@@ -13,7 +13,6 @@ public class Polinomio {
     private char vectorEnChar[];
     private int datosUtiles;
     private int vector[];
-    
 
     public Polinomio(String vectorEnString) {
         this.vector = new int[10];
@@ -21,8 +20,9 @@ public class Polinomio {
         //VectorEnChar toma el tamaño de vectorEnString
         this.vectorEnChar = vectorEnString.toCharArray();
         setGrado(this.vectorEnChar);
-        datosUtiles = this.vector[0];
+        this.datosUtiles = this.vector[0];
         setVector(this.vectorEnChar);
+        setDatosUtiles(this.vector);
     }
     
     public void setGrado(char[] vectorEnChar) {
@@ -52,7 +52,7 @@ public class Polinomio {
     }
     
     public int getGrado(){
-        return vector[0];
+        return this.vector[0];
     }
     
     public void setVector (char[] vectorEnChar){
@@ -65,12 +65,12 @@ public class Polinomio {
             if(vectorEnChar[0] == 'X' && (vectorEnChar[1] == '^' ||
                     vectorEnChar[1] == '+' || vectorEnChar[1] == '-') &&
                     bandera){
-                vector[j] = 1;
+                this.vector[j] = 1;
                 bandera = false;
                 j++;
             }else if(vectorEnChar[i] == '-'){
                 if(vectorEnChar[i+1] == 'X'){
-                    vector[j] = -1;
+                    this.vector[j] = -1;
                     j++;
                 }else{
                     numeroNegativo = "";
@@ -93,5 +93,13 @@ public class Polinomio {
     
     public int[] getVector(){
         return this.vector;
+    }
+    
+    public void setDatosUtiles(int vector[]){
+        this.datosUtiles = vector[0] + 1;
+    }
+    
+    public int getDatosUtiles(){
+        return this.datosUtiles;
     }
 }
