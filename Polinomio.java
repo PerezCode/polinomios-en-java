@@ -60,13 +60,14 @@ public class Polinomio {
         String numeroNegativo;
         //Esta bandera valida que se ejecute una unica vez al primer if en caso
         //de que el primer caracter sea una X positiva.
-        boolean bandera = true;
+        boolean bandera1 = true;
+        boolean bandera2 = true;
         for (int i = 0; i < vectorEnChar.length; i++) {
             if(vectorEnChar[0] == 'X' && (vectorEnChar[1] == '^' ||
                     vectorEnChar[1] == '+' || vectorEnChar[1] == '-') &&
-                    bandera){
+                    bandera1){
                 this.vector[j] = 1;
-                bandera = false;
+                bandera1 = false;
                 j++;
             }else if(vectorEnChar[i] == '-'){
                 if(vectorEnChar[i+1] == 'X'){
@@ -87,6 +88,10 @@ public class Polinomio {
                     vector[j] = Character.getNumericValue(vectorEnChar[i+1]);
                     j++;
                 }
+            }else if(vectorEnChar[0] == ' ' && vectorEnChar[1] != '-' && bandera2){
+                vector[j] = Character.getNumericValue(vectorEnChar[1]);
+                j++;
+                bandera2 = false;
             }
         }
     }
