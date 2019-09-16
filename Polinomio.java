@@ -21,6 +21,8 @@ public class Polinomio {
         //VectorEnChar toma el tamaño de vectorEnString
         this.vectorEnChar = vectorEnString.toCharArray();
         setGrado(this.vectorEnChar);
+        datosUtiles = this.vector[0];
+        setVector(this.vectorEnChar);
     }
     
     public void setGrado(char[] vectorEnChar) {
@@ -47,6 +49,46 @@ public class Polinomio {
            }
         }
         this.vector[0] = exponente;
+    }
+    
+    public int getGrado(){
+        return vector[0];
+    }
+    
+    public void setVector (char[] vectorEnChar){
+        int j = 1;
+        String numeroNegativo;
+        //Esta bandera valida que se ejecute una unica vez al primer if en caso
+        //de que el primer caracter sea una X positiva.
+        boolean bandera = true;
+        for (int i = 0; i < vectorEnChar.length; i++) {
+            if(vectorEnChar[0] == 'X' && (vectorEnChar[1] == '^' ||
+                    vectorEnChar[1] == '+' || vectorEnChar[1] == '-') &&
+                    bandera){
+                vector[j] = 1;
+                bandera = false;
+                j++;
+            }else if(vectorEnChar[i] == '-'){
+                if(vectorEnChar[i+1] == 'X'){
+                    vector[j] = -1;
+                    j++;
+                }else{
+                    numeroNegativo = "";
+                    numeroNegativo += vectorEnChar[i];
+                    numeroNegativo += vectorEnChar[i+1];
+                    vector[j] = Integer.parseInt(numeroNegativo);
+                    j++;
+                }
+            }else if(vectorEnChar[i] == '+'){
+                if(vectorEnChar[i+1] == 'X'){
+                    vector[j] = 1;
+                    j++;
+                }else{
+                    vector[j] = Character.getNumericValue(vectorEnChar[i+1]);
+                    j++;
+                }
+            }
+        }
     }
     
     public int[] getVector(){
