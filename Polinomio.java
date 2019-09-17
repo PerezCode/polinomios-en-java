@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package polinomios;
 
 /**
@@ -14,15 +9,18 @@ public class Polinomio {
     private int datosUtiles;
     private int vector[];
 
-    public Polinomio(String vectorEnString) {
+    public Polinomio(String PoliEnString) {
+        String polinomioEnString = " ";
+        polinomioEnString += PoliEnString;
+        polinomioEnString += " ";
+        polinomioEnString = polinomioEnString.toUpperCase();
         this.vector = new int[10];
         
         //VectorEnChar toma el tamaño de vectorEnString
-        this.vectorEnChar = vectorEnString.toCharArray();
+        this.vectorEnChar = polinomioEnString.toCharArray();
         setGrado(this.vectorEnChar);
-        this.datosUtiles = this.vector[0];
         setVector(this.vectorEnChar);
-        setDatosUtiles(this.vector);
+        setDatosUtiles();
     }
     
     public void setGrado(char[] vectorEnChar) {
@@ -63,8 +61,8 @@ public class Polinomio {
         boolean bandera1 = true;
         boolean bandera2 = true;
         for (int i = 0; i < vectorEnChar.length; i++) {
-            if(vectorEnChar[0] == 'X' && (vectorEnChar[1] == '^' ||
-                    vectorEnChar[1] == '+' || vectorEnChar[1] == '-') &&
+            if(vectorEnChar[1] == 'X' && (vectorEnChar[2] == '^' ||
+                    vectorEnChar[2] == '+' || vectorEnChar[2] == '-') &&
                     bandera1){
                 this.vector[j] = 1;
                 bandera1 = false;
@@ -88,7 +86,8 @@ public class Polinomio {
                     vector[j] = Character.getNumericValue(vectorEnChar[i+1]);
                     j++;
                 }
-            }else if(vectorEnChar[0] == ' ' && vectorEnChar[1] != '-' && bandera2){
+            }else if(vectorEnChar[0] == ' ' && (vectorEnChar[1] != '-' && 
+                    vectorEnChar[1] != 'X') && bandera2){
                 vector[j] = Character.getNumericValue(vectorEnChar[1]);
                 j++;
                 bandera2 = false;
@@ -100,12 +99,11 @@ public class Polinomio {
         return this.vector;
     }
     
-    public void setDatosUtiles(int vector[]){
-        this.datosUtiles = vector[0] + 1;
+    public void setDatosUtiles(){
+        this.datosUtiles = this.vector[0] + 2;
     }
     
     public int getDatosUtiles(){
         return this.datosUtiles;
     }
-    // EMANUEL I WAS HERE
 }

@@ -6,10 +6,7 @@ public class Polinomios {
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
         
-        String polinomioEnString = " ";
-        polinomioEnString += "7x^4+2x^3-3-8x^2+x^5";
-        polinomioEnString += " ";
-        polinomioEnString = polinomioEnString.toUpperCase();
+        String polinomioEnString = "4x^5+x^2+x-3";
         
         Polinomio myPolinomio = new Polinomio(polinomioEnString);
         int array[] = myPolinomio.getVector();
