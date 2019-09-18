@@ -10,17 +10,20 @@ public class Polinomio {
     private int vector[];
 
     public Polinomio(String PoliEnString) {
-        String polinomioEnString = " ";
-        polinomioEnString += PoliEnString;
-        polinomioEnString += " ";
-        polinomioEnString = polinomioEnString.toUpperCase();
         this.vector = new int[10];
-        
-        //VectorEnChar toma el tamaño de vectorEnString
+        String polinomioEnString = buildString(PoliEnString);
         this.vectorEnChar = polinomioEnString.toCharArray();
         setGrado(this.vectorEnChar);
         setVector(this.vectorEnChar);
         setDatosUtiles();
+    }
+    
+    public String buildString(String polinomio){
+        String polinomioListo = " ";
+        polinomioListo += polinomio;
+        polinomioListo += " ";
+        polinomioListo = polinomioListo.toUpperCase();
+        return polinomioListo;
     }
     
     public void setGrado(char[] vectorEnChar) {
