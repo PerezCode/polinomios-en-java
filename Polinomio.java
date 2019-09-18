@@ -16,6 +16,7 @@ public class Polinomio {
         setGrado(this.vectorEnChar);
         setVector(this.vectorEnChar);
         setDatosUtiles();
+        ajustarDU();
     }
     
     public String buildString(String polinomio){
@@ -108,5 +109,15 @@ public class Polinomio {
     
     public int getDatosUtiles(){
         return this.datosUtiles;
+    }
+    
+    public void ajustarDU(){
+        int contador = 0;
+        for (int i = 0; i < this.datosUtiles; i++) {
+            if(this.vector[i] == 0){
+                contador++;
+            }
+        }
+        this.datosUtiles = (this.datosUtiles - contador);
     }
 }
