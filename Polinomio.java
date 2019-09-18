@@ -14,9 +14,8 @@ public class Polinomio {
         String polinomioEnString = buildString(PoliEnString);
         this.vectorEnChar = polinomioEnString.toCharArray();
         setGrado(this.vectorEnChar);
-        setVector(this.vectorEnChar);
         setDatosUtiles();
-        ajustarDU();
+        setVector(this.vectorEnChar);
     }
     
     public String buildString(String polinomio){
@@ -49,6 +48,7 @@ public class Polinomio {
                         exponente = 1;
                     }
            }
+            
         }
         this.vector[0] = exponente;
     }
@@ -68,31 +68,39 @@ public class Polinomio {
             if(vectorEnChar[1] == 'X' && (vectorEnChar[2] == '^' ||
                     vectorEnChar[2] == '+' || vectorEnChar[2] == '-') &&
                     bandera1){
-                this.vector[j] = 1;
-                bandera1 = false;
-                j++;
+                if(vectorEnChar[2] == '^'){
+                   this.vector[this.datosUtiles-(Character.getNumericValue(vectorEnChar[3]))] = 1; 
+                   bandera1 = false;
+                   j++;
+                }else{}
+                //this.vector[j] = 1;
+                
             }else if(vectorEnChar[i] == '-'){
-                if(vectorEnChar[i+1] == 'X'){
-                    this.vector[j] = -1;
+                if(vectorEnChar[i+1] == 'X' && vectorEnChar[i+2] == '^'){
+                    this.vector[this.datosUtiles-(Character.getNumericValue(vectorEnChar[i+3]))] = -1;
                     j++;
                 }else{
                     numeroNegativo = "";
                     numeroNegativo += vectorEnChar[i];
                     numeroNegativo += vectorEnChar[i+1];
-                    vector[j] = Integer.parseInt(numeroNegativo);
+                    vector[this.datosUtiles] = Integer.parseInt(numeroNegativo);
                     j++;
                 }
             }else if(vectorEnChar[i] == '+'){
-                if(vectorEnChar[i+1] == 'X'){
-                    vector[j] = 1;
+                if(vectorEnChar[i+1] == 'X' && vectorEnChar[i+2] == '^'){
+                    vector[this.datosUtiles-(Character.getNumericValue(vectorEnChar[i+3]))] = 1;
                     j++;
-                }else{
-                    vector[j] = Character.getNumericValue(vectorEnChar[i+1]);
+                }else if(vectorEnChar[i+1] == 'X' && vectorEnChar[i+2] != '^'){
+                    vector[this.datosUtiles - 1] = 1;
                     j++;
                 }
             }else if(vectorEnChar[0] == ' ' && (vectorEnChar[1] != '-' && 
                     vectorEnChar[1] != 'X') && bandera2){
-                vector[j] = Character.getNumericValue(vectorEnChar[1]);
+                if(vectorEnChar[3] == '^'){
+                    vector[this.datosUtiles - (Character.getNumericValue(vectorEnChar[4]))] = Character.getNumericValue(vectorEnChar[1]);
+                }else{
+                 vector[this.datosUtiles-1] = Character.getNumericValue(vectorEnChar[1]);   
+                }
                 j++;
                 bandera2 = false;
             }
@@ -104,20 +112,10 @@ public class Polinomio {
     }
     
     public void setDatosUtiles(){
-        this.datosUtiles = this.vector[0] + 2;
+        this.datosUtiles = this.vector[0] + 1;
     }
     
     public int getDatosUtiles(){
         return this.datosUtiles;
-    }
-    
-    public void ajustarDU(){
-        int contador = 0;
-        for (int i = 0; i < this.datosUtiles; i++) {
-            if(this.vector[i] == 0){
-                contador++;
-            }
-        }
-        this.datosUtiles = (this.datosUtiles - contador);
     }
 }
