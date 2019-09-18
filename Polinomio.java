@@ -2,12 +2,14 @@ package polinomios;
 
 /**
  *
- * @author david
+ * @author David P, Juan M, Emanuel V, Daniel.
  */
 public class Polinomio {
     private char vectorEnChar[];
     private int datosUtiles;
     private int vector[];
+    private int expo[];
+    private int[] uExpo = new int [5];
 
     public Polinomio(String PoliEnString) {
         this.vector = new int[10];
@@ -17,6 +19,7 @@ public class Polinomio {
         setVector(this.vectorEnChar);
         setDatosUtiles();
         ajustarDU();
+        cVector();
     }
     
     public String buildString(String polinomio){
@@ -65,9 +68,9 @@ public class Polinomio {
         boolean bandera1 = true;
         boolean bandera2 = true;
         for (int i = 0; i < vectorEnChar.length; i++) {
-            if(vectorEnChar[1] == 'X' && (vectorEnChar[2] == '^' ||
-                    vectorEnChar[2] == '+' || vectorEnChar[2] == '-') &&
-                    bandera1){
+            if(vectorEnChar[1] == 'X' && (vectorEnChar[2] == '^' || 
+                vectorEnChar[2] == '+' || vectorEnChar[2] == '-') 
+                && bandera1){
                 this.vector[j] = 1;
                 bandera1 = false;
                 j++;
@@ -120,4 +123,43 @@ public class Polinomio {
         }
         this.datosUtiles = (this.datosUtiles - contador);
     }
+    
+    public void cVector(){
+        int h = 0;
+        //Capturo del Char las posiciones donde hay un exponente
+        for (int i = 0; i < vectorEnChar.length; i++) {
+            if(vectorEnChar[i] == '^'){
+                //Almaceno en uExpo la la ubicacion
+                uExpo[h] = i+1;
+                h++;
+            }
+        }
+        
+        //Compruebo cuales son los exponentes con este ciclo
+        /*for (int i = 0; i <= h-1; i++) {
+            System.out.println(vectorEnChar[uExpo[i]]);
+        }*/
+
+        
+    }      
 }
+
+/**
+ * Esta lista es para tener control de que falta hacer y que recomendaciones hay por si alguno 
+ * desea avanzar en el codigo al menos tenga una nocion de como hacerlo
+ * segun el estado de avance cambiar los False por un True 
+ * Gracias...
+ * 
+ * 1.Organizar segun el exponente y la poscion los numeros del vector = False
+ * 2.Teniendo en cuenta que ya tengo los exponentes puedo hacer el metodo evaluar = False
+ * 
+ * vector[uExpo[i]] = coefasociado con el expo
+ * - Ligar de algun modo el exponente con su posicion 
+ * - Luego de tener esto hago un contador que me aumente en una variable y se me le reste al mayor expo + 1.
+ * - En este caso, i  = 1; 6 - i = 5...
+ * - El resultado va a ser el exponente segun la i (Cuando i sea 1 el exponente sera el 5) y asi sucecivamente. 
+ * - Asi organizo todo 
+ * 
+ * 3.Crear el metodo sumar (Pedir el otro polinomio y crear filtrarlo hasta llevarlo al un vector organizado) = False
+ * 4.Crear metodo multiplicar (Pedir el otro polinomio y crear filtrarlo hasta llevarlo al un vector organizado) = False
+ */
