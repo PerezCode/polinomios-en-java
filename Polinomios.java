@@ -6,7 +6,7 @@ public class Polinomios {
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
         
-        String polinomioEnString1 = "5x^5+x^2+x-3";
+        String polinomioEnString1 = "-5x^5+x^2+x-3";
         String polinomioEnString2 = "x^3";
         Polinomio myPolinomio1 = new Polinomio(polinomioEnString1);
         Polinomio myPolinomio2 = new Polinomio(polinomioEnString2);

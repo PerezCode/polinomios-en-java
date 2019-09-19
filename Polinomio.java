@@ -79,7 +79,13 @@ public class Polinomio {
                 if(vectorEnChar[i+1] == 'X' && vectorEnChar[i+2] == '^'){
                     this.vector[this.datosUtiles-(Character.getNumericValue(vectorEnChar[i+3]))] = -1;
                     j++;
-                }else{
+                }else if(vectorEnChar[i+1] != 'X' && vectorEnChar[i+2] == 'X'){
+                    numeroNegativo = "";
+                    numeroNegativo += vectorEnChar[i];
+                    numeroNegativo += vectorEnChar[i+1];
+                    vector[this.datosUtiles-(Character.getNumericValue(vectorEnChar[i+4]))] = Integer.parseInt(numeroNegativo);
+                }
+                else{
                     numeroNegativo = "";
                     numeroNegativo += vectorEnChar[i];
                     numeroNegativo += vectorEnChar[i+1];
