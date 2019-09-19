@@ -99,6 +99,8 @@ public class Polinomio {
                 }else if(vectorEnChar[i+1] == 'X' && vectorEnChar[i+2] != '^'){
                     vector[this.datosUtiles - 1] = 1;
                     j++;
+                }else if(vectorEnChar[i+2] != 'X'){
+                    vector[this.datosUtiles] = Character.getNumericValue(vectorEnChar[i+1]);
                 }
             }else if(vectorEnChar[0] == ' ' && (vectorEnChar[1] != '-' && 
                     vectorEnChar[1] != 'X') && bandera2){
