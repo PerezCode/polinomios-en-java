@@ -126,4 +126,46 @@ public class Polinomio {
     public int getDatosUtiles(){
         return this.datosUtiles;
     }
+	
+	public void setEvaluar(){
+        Scanner teclado = new Scanner(System.in);
+        int expo;
+        int evaluar;
+        int h = 0;
+        int m = 0;
+        int resultado[] = new int [5];
+        System.out.println("------------------------------------------");
+        System.out.print("Ingrese el valor con que va a evaluar: ");
+        evaluar = teclado.nextInt();
+        for (int i = 1; i < this.datosUtiles; i++) {
+            if (vector[i] != 0) {
+                expo = this.datosUtiles - i;
+                if(expo != 0){
+                    resultado[h] = (int) Math.pow(evaluar, expo);
+                    h++;
+                }
+            }
+        }
+      
+        for (int i = 1; i < this.datosUtiles+1; i++) {
+            if (vector[i] != 0) {
+                expo = this.datosUtiles - i;
+                if (expo != 0) {
+                    resultado[m] = resultado[m] * vector[i];
+                    m++;
+                }else if (expo == 0 && vector[i] != 0){
+                    resultado[m] = vector[i];
+                }
+            }
+        }
+        
+        for (int i = 1; i <= h; i++) {
+            if(resultado[m] < 0){
+                resultado[0] += resultado[i]; 
+            }else if(resultado[m] > 0 ){
+                resultado[0] -= resultado[i];
+            }                
+        }
+        System.out.println("El polinomio evaluado con el numero "+evaluar+" dio como resultado: "+resultado[0]); 
+    }
 }
