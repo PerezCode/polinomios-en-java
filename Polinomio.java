@@ -142,7 +142,7 @@ public class Polinomio {
         return this.datosUtiles;
     }
 	
-    public void setEvaluar(){
+    public void evaluar(){
         Scanner teclado = new Scanner(System.in);
         int expo;
         int evaluar;
@@ -161,7 +161,7 @@ public class Polinomio {
                 }
             }
         }
-      
+
         for (int i = 1; i < this.datosUtiles+1; i++) {
             if (vector[i] != 0) {
                 expo = this.datosUtiles - i;
@@ -173,17 +173,16 @@ public class Polinomio {
                 }
             }
         }
-        
+
         for (int i = 1; i <= h; i++) {
             if(resultado[m] < 0){
-                resultado[0] += resultado[i]; 
+                resultado[0] += resultado[i];
             }else if(resultado[m] > 0 ){
                 resultado[0] -= resultado[i];
-            }                
+            }
         }
-        System.out.println("El polinomio evaluado con el numero "+evaluar+" dio como resultado: "+resultado[0]); 
+        System.out.println("El polinomio evaluado con el numero "+evaluar+" dio como resultado: "+resultado[0]);
     }
-
         
     public void ingresartermino(){
 
@@ -266,6 +265,40 @@ public class Polinomio {
        }
         for (int l = 0; l <= (gradomayor +1) ; l++) {
             System.out.print("| " + resultado[l] +" |" );
+        }
+    }
+	
+    public void buscar () {
+        Scanner teclado = new Scanner(System.in);
+        int bCoe;
+        int bExpo;
+        int exponente;
+        System.out.print("Digite el coeficiente a buscar:");
+        bCoe = teclado.nextInt();
+        System.out.print("Digite el exponente a buscar:");
+        bExpo = teclado.nextInt();
+        System.out.println("El termino que usted dijito es: " + bCoe + "X^" + bExpo);
+
+        for (int i = 1; i < this.datosUtiles+1; i++) {
+            if (vector[i] != 0) {
+                exponente = this.datosUtiles - i;
+                if (bExpo != 0 && exponente != 0) {
+                    if (exponente == bExpo && vector[i] == bCoe) {
+                        System.out.println("\nEl termino si esta en el polinomio");
+                        i = this.datosUtiles + this.datosUtiles;
+                    } else if (exponente != bExpo && vector[i] != bCoe) {
+                        System.out.println("El termino no se encontro en el polinomio");
+                        i = this.datosUtiles;
+                    }
+                } else if(exponente == 0 ) {
+                    if (bCoe == vector[i]) {
+                        System.out.println("El termino  se encontro en el polinomio");
+                    } else {
+                        System.out.println("El termino no se encontro en el polinomio");
+                        i = this.datosUtiles;
+                    }
+                }
+            }
         }
     }
 }
