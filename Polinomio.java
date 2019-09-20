@@ -151,7 +151,6 @@ public class Polinomio {
         int h = 0;
         int m = 0;
         int resultado[] = new int [5];
-        System.out.println("------------------------------------------");
         System.out.print("Ingrese el valor con que va a evaluar: ");
         evaluar = teclado.nextInt();
         for (int i = 1; i < this.datosUtiles; i++) {
@@ -269,7 +268,7 @@ public class Polinomio {
           z++;
        }
         for (int l = 0; l <= (gradomayor +1) ; l++) {
-            System.out.print("| " + resultado[l] +" |" );
+            System.out.print(resultado[l] + " " );
         }
     }
 	
@@ -306,5 +305,83 @@ public class Polinomio {
                 }
             }
         }
+    }
+    
+    public void cambiarTermino(){
+        Scanner ingresar=new Scanner(System.in);
+
+        int coe;
+        int expo;
+        int reemplazo;
+        int cont=0;
+        System.out.println("Digite el coeficiente que desea cambiar");
+        coe=ingresar.nextInt();
+
+        System.out.println("Digite el exponente\n");
+        expo=ingresar.nextInt();
+
+        System.out.println("Digite el numero por el cual va a reemplazar");
+        reemplazo=ingresar.nextInt();
+        for (int i = 1; i < datosUtiles+1; i++) {
+            int pos=datosUtiles-i;
+            
+            if(pos==expo){
+                if(vector[i]==coe){
+                    vector[i]=reemplazo;
+                }
+            }else{
+                cont++;
+            }
+       
+        } 
+        if(cont==9){
+            System.out.println("No existe");
+        }else{
+            
+        }
+        for (int i = 0; i < 10; i++) {
+            System.out.print(vector[i]+ " " );
+        }   
+     }
+    
+    public void eliminarTermino(){
+
+        Scanner ingresar=new Scanner(System.in);
+
+        int coe;
+        int expo;
+        int cont=0;
+        System.out.println("Digite el coeficiente que desea eliminar");
+        coe=ingresar.nextInt();
+
+        System.out.println("Digite el exponente");
+        expo=ingresar.nextInt();
+
+        for (int i = 1; i < datosUtiles+1; i++) {
+            int pos=datosUtiles-i;
+            if(vector[0]>expo){ 
+                if(vector[i]==coe){
+                    if(pos==expo){
+                        vector[i]=0;
+                    }
+                }else {
+                    cont++;
+                }
+            }else{
+                cont +=2;
+            }
+        }
+        if(cont == 9){
+               System.out.println("no se encontro "); 
+        }
+        else if(cont==18){
+               System.out.println("No elimine");
+        }else{
+            System.out.println("se encontro, eliminado");
+        }
+        
+        for (int i = 0; i < 10; i++) {
+            System.out.print(vector[i]+ " " );
+        }  
     }
 }
