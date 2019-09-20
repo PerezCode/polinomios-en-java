@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package polinomios;
+
+import java.util.Scanner;
 
 /**
  *
@@ -14,15 +11,21 @@ public class Polinomio {
     private int datosUtiles;
     private int vector[];
 
-    public Polinomio(String vectorEnString) {
+    public Polinomio(String PoliEnString) {
         this.vector = new int[10];
-        
-        //VectorEnChar toma el tamaño de vectorEnString
-        this.vectorEnChar = vectorEnString.toCharArray();
+        String polinomioEnString = buildString(PoliEnString);
+        this.vectorEnChar = polinomioEnString.toCharArray();
         setGrado(this.vectorEnChar);
-        this.datosUtiles = this.vector[0];
+        setDatosUtiles();
         setVector(this.vectorEnChar);
-        setDatosUtiles(this.vector);
+    }
+    
+    public String buildString(String polinomio){
+        String polinomioListo = " ";
+        polinomioListo += polinomio;
+        polinomioListo += " ";
+        polinomioListo = polinomioListo.toUpperCase();
+        return polinomioListo;
     }
     
     public void setGrado(char[] vectorEnChar) {
@@ -46,8 +49,11 @@ public class Polinomio {
                     if(1>exponente){
                         exponente = 1;
                     }
+                    
            }
+            
         }
+        
         this.vector[0] = exponente;
     }
     
@@ -60,33 +66,66 @@ public class Polinomio {
         String numeroNegativo;
         //Esta bandera valida que se ejecute una unica vez al primer if en caso
         //de que el primer caracter sea una X positiva.
-        boolean bandera = true;
+        boolean bandera1 = true;
+        boolean bandera2 = true;
         for (int i = 0; i < vectorEnChar.length; i++) {
-            if(vectorEnChar[0] == 'X' && (vectorEnChar[1] == '^' ||
-                    vectorEnChar[1] == '+' || vectorEnChar[1] == '-') &&
-                    bandera){
-                this.vector[j] = 1;
-                bandera = false;
-                j++;
+            if(vectorEnChar[1] == 'X' && (vectorEnChar[2] == '^' ||
+                    vectorEnChar[2] == '+' || vectorEnChar[2] == '-') &&
+                    bandera1){
+                if(vectorEnChar[2] == '^'){
+                   this.vector[this.datosUtiles-(Character.getNumericValue(vectorEnChar[3]))] = 1; 
+                   bandera1 = false;
+                   j++;
+                }else{}
+                //this.vector[j] = 1;
+                
             }else if(vectorEnChar[i] == '-'){
-                if(vectorEnChar[i+1] == 'X'){
-                    this.vector[j] = -1;
+                if(vectorEnChar[i+1] == 'X' && vectorEnChar[i+2] == '^'){
+                    this.vector[this.datosUtiles-(Character.getNumericValue(vectorEnChar[i+3]))] = -1;
                     j++;
-                }else{
+                }else if(vectorEnChar[i+1] != 'X' && vectorEnChar[i+2] == 'X'){
                     numeroNegativo = "";
                     numeroNegativo += vectorEnChar[i];
                     numeroNegativo += vectorEnChar[i+1];
-                    vector[j] = Integer.parseInt(numeroNegativo);
+                    vector[this.datosUtiles-(Character.getNumericValue(vectorEnChar[i+4]))] = Integer.parseInt(numeroNegativo);
+                }
+                else{
+                    numeroNegativo = "";
+                    numeroNegativo += vectorEnChar[i];
+                    numeroNegativo += vectorEnChar[i+1];
+                    vector[this.datosUtiles] = Integer.parseInt(numeroNegativo);
                     j++;
                 }
             }else if(vectorEnChar[i] == '+'){
-                if(vectorEnChar[i+1] == 'X'){
-                    vector[j] = 1;
+                if(vectorEnChar[i+1] == 'X' && vectorEnChar[i+2] == '^'){
+                    vector[this.datosUtiles-(Character.getNumericValue(vectorEnChar[i+3]))] = 1;
                     j++;
-                }else{
-                    vector[j] = Character.getNumericValue(vectorEnChar[i+1]);
+                }else if(vectorEnChar[i+1] == 'X' && vectorEnChar[i+2] != '^'){
+                    vector[this.datosUtiles - 1] = 1;
                     j++;
                 }
+                else if(vectorEnChar[i+1] != 'X' && vectorEnChar[i+2] == ' ' ){
+                    vector[this.datosUtiles] = Character.getNumericValue(vectorEnChar[i+1]);
+                }
+                else if(vectorEnChar[i+1] != 'X' && vectorEnChar[i+2] == 'X' && vectorEnChar[i+3] == '^'){
+                    vector[this.datosUtiles - (Character.getNumericValue(vectorEnChar[i+4]))] = Character.getNumericValue(vectorEnChar[i+1]);
+                }
+                else if(vectorEnChar[i+1] != 'X' && vectorEnChar[i+2] == 'X' && vectorEnChar[i+3] != '^'){
+                    vector[this.datosUtiles - 1] = Character.getNumericValue(vectorEnChar[i+1]);
+                }
+                else if(vectorEnChar[i+2] != 'X'){
+                    vector[this.datosUtiles] = Character.getNumericValue(vectorEnChar[i+1]);
+                }
+                
+            }else if(vectorEnChar[0] == ' ' && (vectorEnChar[1] != '-' && 
+                    vectorEnChar[1] != 'X') && bandera2){
+                if(vectorEnChar[3] == '^'){
+                    vector[this.datosUtiles - (Character.getNumericValue(vectorEnChar[4]))] = Character.getNumericValue(vectorEnChar[1]);
+                }else{
+                 vector[this.datosUtiles-1] = Character.getNumericValue(vectorEnChar[1]);   
+                }
+                j++;
+                bandera2 = false;
             }
         }
     }
@@ -95,12 +134,138 @@ public class Polinomio {
         return this.vector;
     }
     
-    public void setDatosUtiles(int vector[]){
-        this.datosUtiles = vector[0] + 1;
+    public void setDatosUtiles(){
+        this.datosUtiles = this.vector[0] + 1;
     }
     
     public int getDatosUtiles(){
         return this.datosUtiles;
     }
-    // EMANUEL I WAS HERE
+	
+    public void setEvaluar(){
+        Scanner teclado = new Scanner(System.in);
+        int expo;
+        int evaluar;
+        int h = 0;
+        int m = 0;
+        int resultado[] = new int [5];
+        System.out.println("------------------------------------------");
+        System.out.print("Ingrese el valor con que va a evaluar: ");
+        evaluar = teclado.nextInt();
+        for (int i = 1; i < this.datosUtiles; i++) {
+            if (vector[i] != 0) {
+                expo = this.datosUtiles - i;
+                if(expo != 0){
+                    resultado[h] = (int) Math.pow(evaluar, expo);
+                    h++;
+                }
+            }
+        }
+      
+        for (int i = 1; i < this.datosUtiles+1; i++) {
+            if (vector[i] != 0) {
+                expo = this.datosUtiles - i;
+                if (expo != 0) {
+                    resultado[m] = resultado[m] * vector[i];
+                    m++;
+                }else if (expo == 0 && vector[i] != 0){
+                    resultado[m] = vector[i];
+                }
+            }
+        }
+        
+        for (int i = 1; i <= h; i++) {
+            if(resultado[m] < 0){
+                resultado[0] += resultado[i]; 
+            }else if(resultado[m] > 0 ){
+                resultado[0] -= resultado[i];
+            }                
+        }
+        System.out.println("El polinomio evaluado con el numero "+evaluar+" dio como resultado: "+resultado[0]); 
+    }
+
+        
+    public void ingresartermino(){
+
+            Scanner ingresar=new Scanner(System.in);
+
+            int coe;
+            int expo;
+            System.out.println("Digite el coeficiente que desea ingresar");
+            coe=ingresar.nextInt();
+
+            System.out.println("Digite el exponente");
+            expo=ingresar.nextInt();
+
+        for (int i = 1; i < datosUtiles+1; i++) {
+            int pos=datosUtiles-i;
+            if(pos==expo){
+                vector[i]+=coe;
+            }
+        } 
+        for (int i = 0; i < 10; i++) {
+            System.out.print(vector[i]+ " " );
+        }   
+    }
+
+    public void sumar(Polinomio polinomio){
+        
+       int i=1; //iterador polinomio 1 
+       int j=1; //iterador polinomio 2 
+       int k=1; //iterador resultado
+       int z=0; //iterador while
+       
+       int gradomayor = 0;
+       int polinomio2[]= polinomio.getVector();
+       int resultado[] = new int[15];
+       
+       
+       //encontrando el grado mayor de los dos polinomios 
+       if(this.grado  > polinomio.getGrado()){
+           
+           gradomayor = this.grado;
+       }else{
+           
+           gradomayor = polinomio.getGrado();
+           
+       }    
+       resultado[0] = gradomayor;
+       
+       
+       int  exponente1;
+       int exponente2;
+           
+       while(z <= gradomayor){
+          
+           exponente1 = this.datosUtiles - i;
+           exponente2 = polinomio.getDatosUtiles() - j;
+           
+           //suma del polinomio 
+           if(exponente1 == exponente2){ //entra si los exponentes son iguales 
+            
+               resultado[k] = vector[i] + polinomio2[j]; 
+               i++;   
+               j++;    
+               k++;   
+               
+           }else{   // entra cuando tenga exponentes diferentes
+              
+             if(exponente1 > exponente2){ // entra cuando el exp polinomio_1 sea mayor al 2
+           
+             resultado[k] = vector[i]; //guardo coeficiente 
+             i++;  
+             k++;
+             }else{ // entra cuando el exp polinomio_2 sea mayor al 1       
+           
+             resultado[k] = polinomio2[j]; //guardo coeficiente 
+             j++;  
+             k++;  
+             }                        
+           } 
+          z++;
+       }
+        for (int l = 0; l <= (gradomayor +1) ; l++) {
+            System.out.print("| " + resultado[l] +" |" );
+        }
+    }
 }
