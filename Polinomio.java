@@ -1,5 +1,7 @@
 package polinomios;
 
+import java.util.Scanner;
+
 /**
  *
  * @author david
@@ -99,9 +101,20 @@ public class Polinomio {
                 }else if(vectorEnChar[i+1] == 'X' && vectorEnChar[i+2] != '^'){
                     vector[this.datosUtiles - 1] = 1;
                     j++;
-                }else if(vectorEnChar[i+2] != 'X'){
+                }
+                else if(vectorEnChar[i+1] != 'X' && vectorEnChar[i+2] == ' ' ){
                     vector[this.datosUtiles] = Character.getNumericValue(vectorEnChar[i+1]);
                 }
+                else if(vectorEnChar[i+1] != 'X' && vectorEnChar[i+2] == 'X' && vectorEnChar[i+3] == '^'){
+                    vector[this.datosUtiles - (Character.getNumericValue(vectorEnChar[i+4]))] = Character.getNumericValue(vectorEnChar[i+1]);
+                }
+                else if(vectorEnChar[i+1] != 'X' && vectorEnChar[i+2] == 'X' && vectorEnChar[i+3] != '^'){
+                    vector[this.datosUtiles - 1] = Character.getNumericValue(vectorEnChar[i+1]);
+                }
+                else if(vectorEnChar[i+2] != 'X'){
+                    vector[this.datosUtiles] = Character.getNumericValue(vectorEnChar[i+1]);
+                }
+                
             }else if(vectorEnChar[0] == ' ' && (vectorEnChar[1] != '-' && 
                     vectorEnChar[1] != 'X') && bandera2){
                 if(vectorEnChar[3] == '^'){
