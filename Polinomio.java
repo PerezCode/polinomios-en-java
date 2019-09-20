@@ -49,9 +49,11 @@ public class Polinomio {
                     if(1>exponente){
                         exponente = 1;
                     }
+                    
            }
             
         }
+        
         this.vector[0] = exponente;
     }
     
@@ -140,7 +142,7 @@ public class Polinomio {
         return this.datosUtiles;
     }
 	
-	public void setEvaluar(){
+    public void setEvaluar(){
         Scanner teclado = new Scanner(System.in);
         int expo;
         int evaluar;
@@ -180,5 +182,29 @@ public class Polinomio {
             }                
         }
         System.out.println("El polinomio evaluado con el numero "+evaluar+" dio como resultado: "+resultado[0]); 
+    }
+
+        
+    public void ingresartermino(){
+
+            Scanner ingresar=new Scanner(System.in);
+
+            int coe;
+            int expo;
+            System.out.println("Digite el coeficiente que desea ingresar");
+            coe=ingresar.nextInt();
+
+            System.out.println("Digite el exponente");
+            expo=ingresar.nextInt();
+
+        for (int i = 1; i < datosUtiles+1; i++) {
+            int pos=datosUtiles-i;
+            if(pos==expo){
+                vector[i]+=coe;
+            }
+        } 
+        for (int i = 0; i < 10; i++) {
+            System.out.print(vector[i]+ " " );
+        }   
     }
 }
