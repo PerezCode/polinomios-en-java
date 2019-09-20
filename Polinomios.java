@@ -14,18 +14,20 @@ public class Polinomios {
         int array1[] = myPolinomio1.getVector();
         int array2[] = myPolinomio2.getVector();
         //Mostrando el vector con el grado y los coeficientes.
-        for (int i = 0; i < array1.length; i++) {
+        for (int i = 0; i <= myPolinomio1.getDatosUtiles(); i++) {
             System.out.print(array1[i] + " ");
         }
         System.out.println("Du-> " + myPolinomio1.getDatosUtiles());
         System.out.println();
 
-        for (int i = 0; i < array2.length; i++) {
-            System.out.print(array2[i] + " ");
-        }
-        System.out.println("Du-> " + myPolinomio2.getDatosUtiles());
+//        for (int i = 0; i <= myPolinomio2.getDatosUtiles(); i++) {
+//            System.out.print(array2[i] + " ");
+//        }
+//        
+//        System.out.println("Du-> " + myPolinomio2.getDatosUtiles());
+        
         System.out.println("Evaluar el polinomio 1");
-        myPolinomio1.setEvaluar();
+        myPolinomio1.evaluar();
         System.out.println("------------------------------------------");
         myPolinomio1.ingresartermino();
         

@@ -10,6 +10,7 @@ public class Polinomio {
     private char vectorEnChar[];
     private int datosUtiles;
     private int vector[];
+    private int grado;
 
     public Polinomio(String PoliEnString) {
         this.vector = new int[10];
@@ -18,6 +19,7 @@ public class Polinomio {
         setGrado(this.vectorEnChar);
         setDatosUtiles();
         setVector(this.vectorEnChar);
+        this.grado = this.vector[0];
     }
     
     public String buildString(String polinomio){
@@ -193,15 +195,18 @@ public class Polinomio {
             System.out.println("Digite el coeficiente que desea ingresar");
             coe=ingresar.nextInt();
 
-            System.out.println("Digite el exponente");
-            expo=ingresar.nextInt();
+            do{
+                System.out.println("Digite el exponente no mayor al actual (" + this.grado + ")");
+                expo=ingresar.nextInt();
+            }while(expo < 0 || expo > this.grado);
 
         for (int i = 1; i < datosUtiles+1; i++) {
             int pos=datosUtiles-i;
             if(pos==expo){
                 vector[i]+=coe;
             }
-        } 
+        }
+        System.out.print("Vector resultante-> ");
         for (int i = 0; i < 10; i++) {
             System.out.print(vector[i]+ " " );
         }   
@@ -293,6 +298,7 @@ public class Polinomio {
                 } else if(exponente == 0 ) {
                     if (bCoe == vector[i]) {
                         System.out.println("El termino  se encontro en el polinomio");
+                        i = this.datosUtiles;
                     } else {
                         System.out.println("El termino no se encontro en el polinomio");
                         i = this.datosUtiles;
