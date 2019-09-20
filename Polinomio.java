@@ -207,4 +207,65 @@ public class Polinomio {
             System.out.print(vector[i]+ " " );
         }   
     }
+
+    public void sumar(Polinomio polinomio){
+        
+       int i=1; //iterador polinomio 1 
+       int j=1; //iterador polinomio 2 
+       int k=1; //iterador resultado
+       int z=0; //iterador while
+       
+       int gradomayor = 0;
+       int polinomio2[]= polinomio.getVector();
+       int resultado[] = new int[15];
+       
+       
+       //encontrando el grado mayor de los dos polinomios 
+       if(this.grado  > polinomio.getGrado()){
+           
+           gradomayor = this.grado;
+       }else{
+           
+           gradomayor = polinomio.getGrado();
+           
+       }    
+       resultado[0] = gradomayor;
+       
+       
+       int  exponente1;
+       int exponente2;
+           
+       while(z <= gradomayor){
+          
+           exponente1 = this.datosUtiles - i;
+           exponente2 = polinomio.getDatosUtiles() - j;
+           
+           //suma del polinomio 
+           if(exponente1 == exponente2){ //entra si los exponentes son iguales 
+            
+               resultado[k] = vector[i] + polinomio2[j]; 
+               i++;   
+               j++;    
+               k++;   
+               
+           }else{   // entra cuando tenga exponentes diferentes
+              
+             if(exponente1 > exponente2){ // entra cuando el exp polinomio_1 sea mayor al 2
+           
+             resultado[k] = vector[i]; //guardo coeficiente 
+             i++;  
+             k++;
+             }else{ // entra cuando el exp polinomio_2 sea mayor al 1       
+           
+             resultado[k] = polinomio2[j]; //guardo coeficiente 
+             j++;  
+             k++;  
+             }                        
+           } 
+          z++;
+       }
+        for (int l = 0; l <= (gradomayor +1) ; l++) {
+            System.out.print("| " + resultado[l] +" |" );
+        }
+    }
 }
